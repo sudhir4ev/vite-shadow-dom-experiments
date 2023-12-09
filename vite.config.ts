@@ -8,7 +8,7 @@ export default defineConfig({
         cssInjectedByJsPlugin({
             topExecutionPriority: false,
             styleId: () => `foo-${Math.random() * 100}`,
-            injectCodeFunction: (cssCode, options) => {
+            injectCodeFunction: (cssCode) => {
                 console.log('injectCodeFunction')
                 injectStyle(cssCode, 'asdasd')            }
         }),
@@ -16,6 +16,7 @@ export default defineConfig({
         {
             name: 'css-inject-dev',
             enforce: 'post',
+            apply: 'serve',
             transform: (code, id) => {
                 if (id.indexOf('.css') === -1) return code
                 console.log('\n\ntransform', id.substring(id.lastIndexOf('/')), code)
